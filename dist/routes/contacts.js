@@ -81,28 +81,44 @@ function contactsRoutes(server) {
     }); });
     //Add
     server.post("/contacts", function (_req, _res, _next) { return __awaiter(_this, void 0, void 0, function () {
-        var name, contact, newContact, err_3;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
+        var _a, name, groups, activities, emails, companyId, job, followed, addresses, externalId, phoneNumbers, photo, rate, title, userName, userType, visibility, webSite, contact, newContact, err_3;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
                 case 0:
                     if (!_req.is("application/json")) {
                         return [2 /*return*/, _next(new restify_errors_1.InvalidContentError("Expects 'application/json'"))];
                     }
-                    name = _req.body.name;
+                    _a = _req.body, name = _a.name, groups = _a.groups, activities = _a.activities, emails = _a.emails, companyId = _a.companyId, job = _a.job, followed = _a.followed, addresses = _a.addresses, externalId = _a.externalId, phoneNumbers = _a.phoneNumbers, photo = _a.photo, rate = _a.rate, title = _a.title, userName = _a.userName, userType = _a.userType, visibility = _a.visibility, webSite = _a.webSite;
                     contact = new models_1.Contact({
-                        name: name
+                        name: name,
+                        groups: groups,
+                        activities: activities,
+                        emails: emails,
+                        companyId: companyId,
+                        job: job,
+                        followed: followed,
+                        addresses: addresses,
+                        externalId: externalId,
+                        phoneNumbers: phoneNumbers,
+                        photo: photo,
+                        rate: rate,
+                        title: title,
+                        userName: userName,
+                        userType: userType,
+                        visibility: visibility,
+                        webSite: webSite
                     });
-                    _a.label = 1;
+                    _b.label = 1;
                 case 1:
-                    _a.trys.push([1, 3, , 4]);
+                    _b.trys.push([1, 3, , 4]);
                     return [4 /*yield*/, contact.save()];
                 case 2:
-                    newContact = _a.sent();
+                    newContact = _b.sent();
                     _res.send(201);
                     _next();
                     return [3 /*break*/, 4];
                 case 3:
-                    err_3 = _a.sent();
+                    err_3 = _b.sent();
                     return [2 /*return*/, _next(new restify_errors_1.InternalError(err_3.message))];
                 case 4: return [2 /*return*/];
             }

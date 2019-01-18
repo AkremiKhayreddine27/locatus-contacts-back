@@ -81,28 +81,30 @@ function activitiesRoutes(server) {
     }); });
     //Add
     server.post("/activities", function (_req, _res, _next) { return __awaiter(_this, void 0, void 0, function () {
-        var display, activity, newActivity, err_3;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
+        var _a, display, level, parentId, activity, newActivity, err_3;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
                 case 0:
                     if (!_req.is("application/json")) {
                         return [2 /*return*/, _next(new restify_errors_1.InvalidContentError("Expects 'application/json'"))];
                     }
-                    display = _req.body.display;
+                    _a = _req.body, display = _a.display, level = _a.level, parentId = _a.parentId;
                     activity = new models_1.Activity({
-                        name: name
+                        display: display,
+                        level: level,
+                        parentId: parentId
                     });
-                    _a.label = 1;
+                    _b.label = 1;
                 case 1:
-                    _a.trys.push([1, 3, , 4]);
+                    _b.trys.push([1, 3, , 4]);
                     return [4 /*yield*/, activity.save()];
                 case 2:
-                    newActivity = _a.sent();
+                    newActivity = _b.sent();
                     _res.send(201);
                     _next();
                     return [3 /*break*/, 4];
                 case 3:
-                    err_3 = _a.sent();
+                    err_3 = _b.sent();
                     return [2 /*return*/, _next(new restify_errors_1.InternalError(err_3.message))];
                 case 4: return [2 /*return*/];
             }
