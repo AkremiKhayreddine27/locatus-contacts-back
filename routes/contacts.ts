@@ -39,9 +39,43 @@ export function contactsRoutes(server: Server) {
       if (!_req.is("application/json")) {
         return _next(new InvalidContentError("Expects 'application/json'"));
       }
-      const { name } = _req.body;
+      const {
+        name,
+        groups,
+        activities,
+        emails,
+        companyId,
+        job,
+        followed,
+        addresses,
+        externalId,
+        phoneNumbers,
+        photo,
+        rate,
+        title,
+        userName,
+        userType,
+        visibility,
+        webSite
+      } = _req.body;
       const contact = new Contact({
-        name
+        name,
+        groups,
+        activities,
+        emails,
+        companyId,
+        job,
+        followed,
+        addresses,
+        externalId,
+        phoneNumbers,
+        photo,
+        rate,
+        title,
+        userName,
+        userType,
+        visibility,
+        webSite
       });
 
       try {

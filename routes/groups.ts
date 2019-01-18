@@ -37,9 +37,11 @@ export function groupsRoutes(server: Server) {
     if (!_req.is("application/json")) {
       return _next(new InvalidContentError("Expects 'application/json'"));
     }
-    const { display } = _req.body;
+    const { display, level, parentId } = _req.body;
     const group = new Group({
-      name
+      display,
+      level,
+      parentId
     });
 
     try {
