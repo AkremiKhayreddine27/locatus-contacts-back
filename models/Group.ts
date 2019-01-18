@@ -9,18 +9,10 @@ export const GroupSchema = new Schema(
       default: 1
     },
     parentId: {
-      type: Schema.Types.String,
-      set: deleteEmpty
+      type: Schema.Types.Mixed
     }
   },
   { timestamps: { updatedAt: "lastModified", createdAt: "createdAt" } }
 );
-
-function deleteEmpty(v: any) {
-  if (v == null) {
-    return undefined;
-  }
-  return v;
-}
 
 export const Group = model("Group", GroupSchema);

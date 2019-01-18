@@ -10,14 +10,7 @@ exports.ActivitySchema = new mongoose_1.Schema({
         default: 1
     },
     parentId: {
-        type: mongoose_1.Schema.Types.String,
-        set: deleteEmpty
+        type: mongoose_1.Schema.Types.Mixed
     }
 }, { timestamps: { updatedAt: "lastModified", createdAt: "createdAt" } });
-function deleteEmpty(v) {
-    if (v == null) {
-        return undefined;
-    }
-    return v;
-}
 exports.Activity = mongoose_1.model("Activity", exports.ActivitySchema);
