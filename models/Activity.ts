@@ -9,10 +9,18 @@ export const ActivitySchema = new Schema(
       default: 1
     },
     parentId: {
-      type: Schema.Types.String
+      type: Schema.Types.String,
+      set: deleteEmpty
     }
   },
   { timestamps: { updatedAt: "lastModified", createdAt: "createdAt" } }
 );
+
+function deleteEmpty(v: any) {
+  if (v == null) {
+    return undefined;
+  }
+  return v;
+}
 
 export const Activity = model("Activity", ActivitySchema);
