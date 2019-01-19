@@ -1,15 +1,14 @@
 import {
   InvalidContentError,
-  InternalError,
   ResourceNotFoundError
 } from "restify-errors";
-import { Server, Next, Request, Response } from "restify";
-import { Contact } from "../models";
+import { Server, Request, Response } from "restify";
+import { Contact } from "../models/Contact";
 export function contactsRoutes(server: Server) {
   // Find all
   server.get("/contacts", async (_req: Request, _res: Response, _next) => {
     try {
-      const contacts = await Contact.find({});
+      const contacts = await Contact.findAll();
       _res.send(contacts);
       _next();
     } catch (err) {
@@ -20,7 +19,7 @@ export function contactsRoutes(server: Server) {
   // Find One
   server.get("/contacts/:id", async (_req: Request, _res: Response, _next) => {
     try {
-      const contact = await Contact.findById(_req.params.id);
+      const contact = await Contact.findByPk(_req.params.id);
       _res.send(contact);
       _next();
     } catch (err) {
@@ -32,7 +31,7 @@ export function contactsRoutes(server: Server) {
     }
   });
 
-  //Add
+  /*
   server.post(
     "/contacts",
     async (_req: Request, _res: Response, _next: Next) => {
@@ -41,8 +40,6 @@ export function contactsRoutes(server: Server) {
       }
       const {
         name,
-        groups,
-        activities,
         emails,
         companyId,
         job,
@@ -56,12 +53,12 @@ export function contactsRoutes(server: Server) {
         userName,
         userType,
         visibility,
-        webSite
+        webSite,
+        lastModified,
+        createdAt
       } = _req.body;
-      const contact = new Contact({
+      Contact.create({
         name,
-        groups,
-        activities,
         emails,
         companyId,
         job,
@@ -75,16 +72,17 @@ export function contactsRoutes(server: Server) {
         userName,
         userType,
         visibility,
-        webSite
-      });
-
-      try {
-        const newContact = await contact.save();
-        _res.send(201);
-        _next();
-      } catch (err) {
-        return _next(new InternalError(err.message));
-      }
+        webSite,
+        lastModified,
+        createdAt
+      })
+        .then(() => {
+          _res.send(201);
+          _next();
+        })
+        .catch(err => {
+          return _next(new InternalError(err.message));
+        });
     }
   );
 
@@ -97,10 +95,7 @@ export function contactsRoutes(server: Server) {
       }
 
       try {
-        const contact = await Contact.findOneAndUpdate(
-          { _id: _req.params.id },
-          _req.body
-        );
+        //const contact = await Contact.update();
         _res.send(200);
         _next();
       } catch (err) {
@@ -114,12 +109,11 @@ export function contactsRoutes(server: Server) {
   );
 
   // Delete
-  //Update
   server.del(
     "/contacts/:id",
     async (_req: Request, _res: Response, _next: Next) => {
       try {
-        const contact = await Contact.findOneAndRemove({ _id: _req.params.id });
+        //const contact = await Contact.({ _id: _req.params.id });
         _res.send(204);
         _next();
       } catch (err) {
@@ -131,4 +125,5 @@ export function contactsRoutes(server: Server) {
       }
     }
   );
+  */
 }

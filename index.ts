@@ -1,26 +1,20 @@
 import restify = require("restify");
-import mongoose = require("mongoose");
 import { config } from "./config";
 import { contactsRoutes, groupsRoutes, activitiesRoutes } from "./routes";
-
+import { db } from "./db";
 const server = restify.createServer();
 
 server.use(restify.plugins.bodyParser());
 
-server.listen(config.PORT, () => {
-  mongoose.connect(
-    config.MONGODB_URI,
-    { useNewUrlParser: true }
-  );
-});
+server.listen(config.PORT, () => {});
 
-const db = mongoose.connection;
-
-db.on("error", err => console.log(err));
-
-db.once("open", () => {
-  contactsRoutes(server);
-  groupsRoutes(server);
-  activitiesRoutes(server);
-  console.log("server started on port " + config.PORT);
-});
+db.authenticate()
+  .then(() => {
+    contactsRoutes(server);
+    groupsRoutes(server);
+    activitiesRoutes(server);
+    console.log("server started on port " + config.PORT);
+  })
+  .catch((err: any) => {
+    console.error("Unable to connect to the database:", err);
+  });

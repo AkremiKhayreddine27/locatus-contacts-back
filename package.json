@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "tsc && node dist/index.js",
-    "build":"tsc",
+    "build": "tsc",
     "dev": "ts-node-dev --respawn --transpileOnly index.ts",
     "prod": "tsc && node ./dist/index.js",
     "tsc": "tsc"
@@ -14,13 +14,17 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@types/mongoose": "^5.3.7",
     "@types/restify": "^7.2.7",
     "@types/restify-errors": "^4.3.3",
-    "mongoose": "^5.4.4",
-    "mongoose-timestamp": "^0.6.0",
+    "@types/sequelize": "^4.27.34",
+    "pg": "^7.8.0",
+    "pg-hstore": "^2.3.2",
+    "reflect-metadata": "^0.1.13",
     "restify": "^7.5.0",
     "restify-errors": "^6.1.1",
+    "sequelize": "^4.42.0",
+    "sequelize-cli": "^5.4.0",
+    "sequelize-typescript": "^0.6.7",
     "typescript": "^3.2.4"
   },
   "devDependencies": {

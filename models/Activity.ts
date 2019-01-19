@@ -1,18 +1,23 @@
-import { Schema, model } from "mongoose";
-export const ActivitySchema = new Schema(
-  {
-    display: {
-      type: Schema.Types.String
-    },
-    level: {
-      type: Schema.Types.Number,
-      default: 1
-    },
-    parentId: {
-      type: Schema.Types.Mixed
-    }
-  },
-  { timestamps: { updatedAt: "lastModified", createdAt: "createdAt" } }
-);
+import {
+  Table,
+  Column,
+  Model,
+  DataType,
+  ForeignKey,
+  HasMany
+} from "sequelize-typescript";
 
-export const Activity = model("Activity", ActivitySchema);
+@Table
+export class Activity extends Model<Activity> {
+  @Column(DataType.STRING)
+  display;
+
+  @Column(DataType.INTEGER)
+  level;
+
+  @ForeignKey(() => Activity)
+  parentId;
+
+  @HasMany(() => Activity)
+  children;
+}

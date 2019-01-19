@@ -1,15 +1,14 @@
 import {
   InvalidContentError,
-  InternalError,
   ResourceNotFoundError
 } from "restify-errors";
-import { Server, Next, Request, Response } from "restify";
-import { Group } from "../models";
+import { Server, Request, Response } from "restify";
+import { Group } from "../models/Group";
 export function groupsRoutes(server: Server) {
   // Find all
   server.get("/groups", async (_req: Request, _res: Response, _next) => {
     try {
-      const groups = await Group.find({});
+      const groups = await Group.findAll();
       _res.send(groups);
       _next();
     } catch (err) {
@@ -20,7 +19,7 @@ export function groupsRoutes(server: Server) {
   // Find One
   server.get("/groups/:id", async (_req: Request, _res: Response, _next) => {
     try {
-      const group = await Group.findById(_req.params.id);
+      const group = await Group.findByPk(_req.params.id);
       _res.send(group);
       _next();
     } catch (err) {
@@ -32,25 +31,24 @@ export function groupsRoutes(server: Server) {
     }
   });
 
-  //Add
+  /*
   server.post("/groups", async (_req: Request, _res: Response, _next: Next) => {
     if (!_req.is("application/json")) {
       return _next(new InvalidContentError("Expects 'application/json'"));
     }
     const { display, level, parentId } = _req.body;
-    const group = new Group({
+    const group = Group.create({
       display,
       level,
       parentId
-    });
-
-    try {
-      const newGroup = await group.save();
-      _res.send(201);
-      _next();
-    } catch (err) {
-      return _next(new InternalError(err.message));
-    }
+    })
+      .then(() => {
+        _res.send(201);
+        _next();
+      })
+      .catch(err => {
+        return _next(new InternalError(err.message));
+      });
   });
 
   //Update
@@ -79,7 +77,6 @@ export function groupsRoutes(server: Server) {
   );
 
   // Delete
-  //Update
   server.del(
     "/groups/:id",
     async (_req: Request, _res: Response, _next: Next) => {
@@ -96,4 +93,5 @@ export function groupsRoutes(server: Server) {
       }
     }
   );
+  */
 }

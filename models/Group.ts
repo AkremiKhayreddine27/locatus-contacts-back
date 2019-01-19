@@ -1,18 +1,24 @@
-import { Schema, model } from "mongoose";
-export const GroupSchema = new Schema(
-  {
-    display: {
-      type: Schema.Types.String
-    },
-    level: {
-      type: Schema.Types.Number,
-      default: 1
-    },
-    parentId: {
-      type: Schema.Types.Mixed
-    }
-  },
-  { timestamps: { updatedAt: "lastModified", createdAt: "createdAt" } }
-);
+import {
+  Table,
+  Column,
+  Model,
+  BelongsTo,
+  DataType,
+  ForeignKey
+} from "sequelize-typescript";
 
-export const Group = model("Group", GroupSchema);
+@Table
+export class Group extends Model<Group> {
+
+  @Column(DataType.STRING)
+  display;
+
+  @Column(DataType.INTEGER)
+  level;
+
+  @ForeignKey(() => Group)
+  parentId;
+
+  @BelongsTo(() => Group)
+  parent;
+}

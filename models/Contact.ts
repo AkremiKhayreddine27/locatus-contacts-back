@@ -1,54 +1,69 @@
-import { Schema, model } from "mongoose";
-import { ActivitySchema } from "./Activity";
-import { GroupSchema } from "./Group";
-const ContactSchema = new Schema(
-  {
-    name: {
-      type: Schema.Types.Mixed,
-      required: true,
-      trim: true
-    },
-    companyId: {
-      type: Schema.Types.String
-    },
-    activities: [ActivitySchema],
-    groups: [GroupSchema],
-    job: {
-      type: Schema.Types.String
-    },
-    followed: {
-      type: Schema.Types.Boolean,
-      default: false
-    },
-    emails: {
-      type: Schema.Types.Array
-    },
-    addresses: {
-      type: Schema.Types.Array
-    },
-    externalId: {
-      type: Schema.Types.String
-    },
-    phoneNumbers: {
-      type: Schema.Types.Array
-    },
-    photo: {
-      type: Schema.Types.String
-    },
-    rate: {
-      type: Schema.Types.Array
-    },
-    title: {
-      type: Schema.Types.String
-    },
-    userName: {
-      type: Schema.Types.String
-    },
-    userType: { type: Schema.Types.String },
-    visibility: { type: Schema.Types.String },
-    webSite: { type: Schema.Types.String }
-  },
-  { timestamps: { updatedAt: "lastModified", createdAt: "createdAt" } }
-);
+import {
+  Table,
+  Column,
+  Model,
+  BelongsTo,
+  CreatedAt,
+  UpdatedAt,
+  AllowNull,
+  DataType,
+  ForeignKey
+} from "sequelize-typescript";
 
-export const Contact = model("Contact", ContactSchema);
+@Table
+export class Contact extends Model<Contact> {
+  @ForeignKey(() => Contact)
+  id;
+
+  @Column(DataType.JSON)
+  name;
+
+  @BelongsTo(() => Contact)
+  company;
+
+  @AllowNull
+  @Column(DataType.STRING)
+  job;
+
+  @Column(DataType.BOOLEAN)
+  followed;
+
+  @Column(DataType.ARRAY(DataType.JSON))
+  emails;
+
+  @Column(DataType.ARRAY(DataType.JSON))
+  addresses;
+
+  @Column(DataType.INTEGER)
+  externalId;
+
+  @Column(DataType.ARRAY(DataType.JSON))
+  phoneNumbers;
+
+  @Column(DataType.STRING)
+  photo;
+
+  @Column(DataType.ARRAY(DataType.JSON))
+  rate;
+
+  @Column(DataType.STRING)
+  title;
+
+  @Column(DataType.STRING)
+  userName;
+
+  @Column(DataType.STRING)
+  userType;
+
+  @Column(DataType.STRING)
+  visibility;
+
+  @Column(DataType.STRING)
+  webSite;
+
+  @CreatedAt
+  createdAt!: Date;
+
+  @UpdatedAt
+  lastModified!: Date;
+}

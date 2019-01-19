@@ -1,15 +1,17 @@
 import {
   InvalidContentError,
-  InternalError,
   ResourceNotFoundError
 } from "restify-errors";
-import { Server, Next, Request, Response } from "restify";
-import { Activity } from "../models";
+import { Server, Request, Response } from "restify";
+import { Activity } from "../models/Activity";
+
 export function activitiesRoutes(server: Server) {
   // Find all
   server.get("/activities", async (_req: Request, _res: Response, _next) => {
     try {
-      const activities = await Activity.find({});
+      const activities = await Activity.findAll({
+        include: [{ model: Activity }]
+      });
       _res.send(activities);
       _next();
     } catch (err) {
@@ -22,7 +24,9 @@ export function activitiesRoutes(server: Server) {
     "/activities/:id",
     async (_req: Request, _res: Response, _next) => {
       try {
-        const activity = await Activity.findById(_req.params.id);
+        const activity = await Activity.findByPk(_req.params.id, {
+          include: [{ model: Activity }]
+        });
         _res.send(activity);
         _next();
       } catch (err) {
@@ -35,7 +39,7 @@ export function activitiesRoutes(server: Server) {
     }
   );
 
-  //Add
+  /*
   server.post(
     "/activities",
     async (_req: Request, _res: Response, _next: Next) => {
@@ -43,19 +47,18 @@ export function activitiesRoutes(server: Server) {
         return _next(new InvalidContentError("Expects 'application/json'"));
       }
       const { display, level, parentId } = _req.body;
-      const activity = new Activity({
+      Activity.create({
         display,
         level,
         parentId
-      });
-
-      try {
-        const newActivity = await activity.save();
-        _res.send(201);
-        _next();
-      } catch (err) {
-        return _next(new InternalError(err.message));
-      }
+      })
+        .then(() => {
+          _res.send(201);
+          _next();
+        })
+        .catch(err => {
+          return _next(new InternalError(err.message));
+        });
     }
   );
 
@@ -85,7 +88,6 @@ export function activitiesRoutes(server: Server) {
   );
 
   // Delete
-  //Update
   server.del(
     "/activities/:id",
     async (_req: Request, _res: Response, _next: Next) => {
@@ -104,4 +106,5 @@ export function activitiesRoutes(server: Server) {
       }
     }
   );
+  */
 }
