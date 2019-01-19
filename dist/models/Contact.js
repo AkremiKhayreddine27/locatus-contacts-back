@@ -11,6 +11,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var Contact_1;
 const sequelize_typescript_1 = require("sequelize-typescript");
+const Group_1 = require("./Group");
+const Activity_1 = require("./Activity");
 let Contact = Contact_1 = class Contact extends sequelize_typescript_1.Model {
 };
 __decorate([
@@ -78,6 +80,14 @@ __decorate([
     sequelize_typescript_1.Column(sequelize_typescript_1.DataType.STRING),
     __metadata("design:type", Object)
 ], Contact.prototype, "webSite", void 0);
+__decorate([
+    sequelize_typescript_1.BelongsToMany(() => Group_1.Group, "contacts_groups", "contactId", "groupId"),
+    __metadata("design:type", Object)
+], Contact.prototype, "groups", void 0);
+__decorate([
+    sequelize_typescript_1.BelongsToMany(() => Activity_1.Activity, "contacts_activities", "contactId", "activityId"),
+    __metadata("design:type", Object)
+], Contact.prototype, "activities", void 0);
 __decorate([
     sequelize_typescript_1.CreatedAt,
     __metadata("design:type", Date)

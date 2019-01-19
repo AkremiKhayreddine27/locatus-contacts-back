@@ -1,14 +1,15 @@
-import {
-  InvalidContentError,
-  ResourceNotFoundError
-} from "restify-errors";
+import { InvalidContentError, ResourceNotFoundError } from "restify-errors";
 import { Server, Request, Response } from "restify";
 import { Contact } from "../models/Contact";
+import { Group } from "../models/Group";
+import { Activity } from "../models/Activity";
 export function contactsRoutes(server: Server) {
   // Find all
   server.get("/contacts", async (_req: Request, _res: Response, _next) => {
     try {
-      const contacts = await Contact.findAll();
+      const contacts = await Contact.findAll({
+        include: [{ model: Group }, { model: Activity }]
+      });
       _res.send(contacts);
       _next();
     } catch (err) {

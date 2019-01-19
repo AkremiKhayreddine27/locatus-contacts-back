@@ -10,11 +10,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const restify_errors_1 = require("restify-errors");
 const Contact_1 = require("../models/Contact");
+const Group_1 = require("../models/Group");
+const Activity_1 = require("../models/Activity");
 function contactsRoutes(server) {
     // Find all
     server.get("/contacts", (_req, _res, _next) => __awaiter(this, void 0, void 0, function* () {
         try {
-            const contacts = yield Contact_1.Contact.findAll();
+            const contacts = yield Contact_1.Contact.findAll({
+                include: [{ model: Group_1.Group }, { model: Activity_1.Activity }]
+            });
             _res.send(contacts);
             _next();
         }

@@ -7,8 +7,11 @@ import {
   UpdatedAt,
   AllowNull,
   DataType,
-  ForeignKey
+  ForeignKey,
+  BelongsToMany
 } from "sequelize-typescript";
+import { Group } from "./Group";
+import { Activity } from "./Activity";
 
 @Table
 export class Contact extends Model<Contact> {
@@ -60,6 +63,17 @@ export class Contact extends Model<Contact> {
 
   @Column(DataType.STRING)
   webSite;
+
+  @BelongsToMany(() => Group, "contacts_groups", "contactId", "groupId")
+  groups;
+
+  @BelongsToMany(
+    () => Activity,
+    "contacts_activities",
+    "contactId",
+    "activityId"
+  )
+  activities;
 
   @CreatedAt
   createdAt!: Date;
