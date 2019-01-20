@@ -3,12 +3,27 @@ import { Server, Request, Response } from "restify";
 import { Contact } from "../models/Contact";
 import { Group } from "../models/Group";
 import { Activity } from "../models/Activity";
+import { Sequelize } from "sequelize-typescript";
 export function contactsRoutes(server: Server) {
   // Find all
   server.get("/contacts", async (_req: Request, _res: Response, _next) => {
     try {
+      let query = {};
+      Object.keys(_req.query).map(key => {
+        if (Array.isArray(_req.query[key])) {
+          query["$" + key + ".id$"] = { [Sequelize.Op.in]: _req.query[key] };
+        } else {
+          query[key] = { [Sequelize.Op.eq]: _req.query[key] };
+        }
+      });
       const contacts = await Contact.findAll({
-        include: [{ model: Group }, { model: Activity }]
+        where: query,
+        include: [
+          {
+            model: Group
+          },
+          { model: Activity }
+        ]
       });
       _res.send(contacts);
       _next();

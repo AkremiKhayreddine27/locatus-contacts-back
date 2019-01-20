@@ -9,10 +9,12 @@ const rjwt = require("restify-jwt-community");
 const server = restify.createServer();
 
 server.use(restify.plugins.bodyParser());
+server.use(restify.plugins.queryParser());
 
 server.use(
   rjwt({ secret: config.JWT_SECRET }).unless({ path: ["/auth", "/register"] })
 );
+
 
 server.listen(config.PORT, () => {});
 

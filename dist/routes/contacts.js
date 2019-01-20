@@ -12,12 +12,28 @@ const restify_errors_1 = require("restify-errors");
 const Contact_1 = require("../models/Contact");
 const Group_1 = require("../models/Group");
 const Activity_1 = require("../models/Activity");
+const sequelize_typescript_1 = require("sequelize-typescript");
 function contactsRoutes(server) {
     // Find all
     server.get("/contacts", (_req, _res, _next) => __awaiter(this, void 0, void 0, function* () {
         try {
+            let query = {};
+            Object.keys(_req.query).map(key => {
+                if (Array.isArray(_req.query[key])) {
+                    query["$" + key + ".id$"] = { [sequelize_typescript_1.Sequelize.Op.in]: _req.query[key] };
+                }
+                else {
+                    query[key] = { [sequelize_typescript_1.Sequelize.Op.eq]: _req.query[key] };
+                }
+            });
             const contacts = yield Contact_1.Contact.findAll({
-                include: [{ model: Group_1.Group }, { model: Activity_1.Activity }]
+                where: query,
+                include: [
+                    {
+                        model: Group_1.Group
+                    },
+                    { model: Activity_1.Activity }
+                ]
             });
             _res.send(contacts);
             _next();
