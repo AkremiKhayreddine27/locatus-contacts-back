@@ -12,5 +12,6 @@ export const config = {
     "ad1fdd9f25f90e48d0d76bf4e17e0110f28e0b9f70be1774188efa57ab727c8b",
   PG_URI:
     process.env.PG_URI ||
-    "postgres://rvcafnjmsjokrz:ad1fdd9f25f90e48d0d76bf4e17e0110f28e0b9f70be1774188efa57ab727c8b@ec2-54-75-230-41.eu-west-1.compute.amazonaws.com:5432/dbggc6gdl4nv81"
+    "postgres://rvcafnjmsjokrz:ad1fdd9f25f90e48d0d76bf4e17e0110f28e0b9f70be1774188efa57ab727c8b@ec2-54-75-230-41.eu-west-1.compute.amazonaws.com:5432/dbggc6gdl4nv81",
+  JWT_SECRET: process.env.JWT_SECRET || "secret123"
 };
