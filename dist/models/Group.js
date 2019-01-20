@@ -29,6 +29,10 @@ __decorate([
     sequelize_typescript_1.BelongsTo(() => Group_1),
     __metadata("design:type", Object)
 ], Group.prototype, "parent", void 0);
+__decorate([
+    sequelize_typescript_1.BelongsToMany(() => Group_1, "contacts_groups", "groupId", "contactId"),
+    __metadata("design:type", Object)
+], Group.prototype, "contacts", void 0);
 Group = Group_1 = __decorate([
     sequelize_typescript_1.Table
 ], Group);

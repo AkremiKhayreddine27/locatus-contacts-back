@@ -1,8 +1,5 @@
-import {
-  InvalidContentError,
-  ResourceNotFoundError
-} from "restify-errors";
-import { Server, Request, Response } from "restify";
+import { InvalidContentError, ResourceNotFoundError } from "restify-errors";
+import { Server, Request, Response, Next } from "restify";
 import { Group } from "../models/Group";
 export function groupsRoutes(server: Server) {
   // Find all
@@ -30,6 +27,23 @@ export function groupsRoutes(server: Server) {
       );
     }
   });
+
+  server.post(
+    "/groups/:id/contacts",
+    async (_req: Request, _res: Response, _next: Next) => {
+      try {
+        const { contactsIds } = _req.body;
+        const group = await Group.findByPk(_req.params.id);
+        await group.$add("contacts", contactsIds);
+        _res.send(201);
+        _next();
+      } catch (err) {
+        new ResourceNotFoundError(
+          "There is no group with id of " + _req.params.id
+        );
+      }
+    }
+  );
 
   /*
   server.post("/groups", async (_req: Request, _res: Response, _next: Next) => {

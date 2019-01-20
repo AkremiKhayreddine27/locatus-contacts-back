@@ -4,12 +4,12 @@ import {
   Model,
   BelongsTo,
   DataType,
-  ForeignKey
+  ForeignKey,
+  BelongsToMany
 } from "sequelize-typescript";
 
 @Table
 export class Group extends Model<Group> {
-
   @Column(DataType.STRING)
   display;
 
@@ -21,4 +21,7 @@ export class Group extends Model<Group> {
 
   @BelongsTo(() => Group)
   parent;
+
+  @BelongsToMany(() => Group, "contacts_groups", "groupId", "contactId")
+  contacts;
 }
