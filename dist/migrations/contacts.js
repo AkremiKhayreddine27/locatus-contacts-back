@@ -142,7 +142,12 @@ function migrate() {
                     type: sequelize_typescript_1.Sequelize.INTEGER
                 }
             });
-            yield db_1.db.getQueryInterface().createTable("contacts_groups", {
+            yield db_1.db.getQueryInterface().createTable("ContactGroup", {
+                id: {
+                    type: sequelize_typescript_1.Sequelize.INTEGER,
+                    primaryKey: true,
+                    autoIncrement: true
+                },
                 contactId: {
                     type: sequelize_typescript_1.Sequelize.INTEGER,
                     references: {
@@ -160,7 +165,12 @@ function migrate() {
                     onDelete: "cascade"
                 }
             });
-            yield db_1.db.getQueryInterface().createTable("contacts_activities", {
+            yield db_1.db.getQueryInterface().createTable("ContactActivity", {
+                id: {
+                    type: sequelize_typescript_1.Sequelize.INTEGER,
+                    primaryKey: true,
+                    autoIncrement: true
+                },
                 contactId: {
                     type: sequelize_typescript_1.Sequelize.INTEGER,
                     references: {

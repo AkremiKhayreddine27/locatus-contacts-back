@@ -23,6 +23,6 @@ export class Activity extends Model<Activity> {
   @HasMany(() => Activity)
   children;
 
-  @BelongsToMany(() => Contact, "contacts_activities", "activityId", "contactId")
+  @BelongsToMany(() => Contact, "ContactActivity", "activityId", "contactId")
   contacts;
 }

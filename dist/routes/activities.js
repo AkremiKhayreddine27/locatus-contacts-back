@@ -10,6 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const restify_errors_1 = require("restify-errors");
 const Activity_1 = require("../models/Activity");
+const ContactActivity_1 = require("../models/ContactActivity");
 function activitiesRoutes(server) {
     // Find all
     server.get("/activities", (_req, _res, _next) => __awaiter(this, void 0, void 0, function* () {
@@ -22,6 +23,16 @@ function activitiesRoutes(server) {
         }
         catch (err) {
             return _next(new restify_errors_1.InvalidContentError(err));
+        }
+    }));
+    server.get("/contacts-activities", (_req, _res, _next) => __awaiter(this, void 0, void 0, function* () {
+        try {
+            const contactsActivities = yield ContactActivity_1.ContactActivity.findAll();
+            _res.send(contactsActivities);
+            _next();
+        }
+        catch (err) {
+            new restify_errors_1.InvalidContentError(err);
         }
     }));
     // Find One

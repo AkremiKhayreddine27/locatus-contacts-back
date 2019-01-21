@@ -1,9 +1,7 @@
-import {
-  InvalidContentError,
-  ResourceNotFoundError
-} from "restify-errors";
+import { InvalidContentError, ResourceNotFoundError } from "restify-errors";
 import { Server, Request, Response, Next } from "restify";
 import { Activity } from "../models/Activity";
+import { ContactActivity } from "../models/ContactActivity";
 
 export function activitiesRoutes(server: Server) {
   // Find all
@@ -18,6 +16,19 @@ export function activitiesRoutes(server: Server) {
       return _next(new InvalidContentError(err));
     }
   });
+
+  server.get(
+    "/contacts-activities",
+    async (_req: Request, _res: Response, _next: Next) => {
+      try {
+        const contactsActivities = await ContactActivity.findAll();
+        _res.send(contactsActivities);
+        _next();
+      } catch (err) {
+        new InvalidContentError(err);
+      }
+    }
+  );
 
   // Find One
   server.get(

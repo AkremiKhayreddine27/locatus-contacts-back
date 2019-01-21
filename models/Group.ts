@@ -23,6 +23,6 @@ export class Group extends Model<Group> {
   @BelongsTo(() => Group)
   parent;
 
-  @BelongsToMany(() => Contact, "contacts_groups", "groupId", "contactId")
+  @BelongsToMany(() => Contact, "ContactGroup", "groupId", "contactId")
   contacts;
 }

@@ -85,11 +85,11 @@ __decorate([
     __metadata("design:type", Object)
 ], Contact.prototype, "active", void 0);
 __decorate([
-    sequelize_typescript_1.BelongsToMany(() => Group_1.Group, "contacts_groups", "contactId", "groupId"),
+    sequelize_typescript_1.BelongsToMany(() => Group_1.Group, "ContactGroup", "contactId", "groupId"),
     __metadata("design:type", Object)
 ], Contact.prototype, "groups", void 0);
 __decorate([
-    sequelize_typescript_1.BelongsToMany(() => Activity_1.Activity, "contacts_activities", "contactId", "activityId"),
+    sequelize_typescript_1.BelongsToMany(() => Activity_1.Activity, "ContactActivity", "contactId", "activityId"),
     __metadata("design:type", Object)
 ], Contact.prototype, "activities", void 0);
 __decorate([

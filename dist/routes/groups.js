@@ -10,6 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const restify_errors_1 = require("restify-errors");
 const Group_1 = require("../models/Group");
+const ContactGroup_1 = require("../models/ContactGroup");
 function groupsRoutes(server) {
     // Find all
     server.get("/groups", (_req, _res, _next) => __awaiter(this, void 0, void 0, function* () {
@@ -20,6 +21,16 @@ function groupsRoutes(server) {
         }
         catch (err) {
             return _next(new restify_errors_1.InvalidContentError(err));
+        }
+    }));
+    server.get("/contacts-groups", (_req, _res, _next) => __awaiter(this, void 0, void 0, function* () {
+        try {
+            const contactsGroups = yield ContactGroup_1.ContactGroup.findAll();
+            _res.send(contactsGroups);
+            _next();
+        }
+        catch (err) {
+            new restify_errors_1.InvalidContentError(err);
         }
     }));
     // Find One

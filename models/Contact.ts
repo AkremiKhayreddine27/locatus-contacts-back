@@ -67,12 +67,12 @@ export class Contact extends Model<Contact> {
   @Column(DataType.BOOLEAN)
   active;
 
-  @BelongsToMany(() => Group, "contacts_groups", "contactId", "groupId")
+  @BelongsToMany(() => Group, "ContactGroup", "contactId", "groupId")
   groups;
 
   @BelongsToMany(
     () => Activity,
-    "contacts_activities",
+    "ContactActivity",
     "contactId",
     "activityId"
   )

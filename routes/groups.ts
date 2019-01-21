@@ -1,6 +1,7 @@
 import { InvalidContentError, ResourceNotFoundError } from "restify-errors";
 import { Server, Request, Response, Next } from "restify";
 import { Group } from "../models/Group";
+import { ContactGroup } from "../models/ContactGroup";
 export function groupsRoutes(server: Server) {
   // Find all
   server.get("/groups", async (_req: Request, _res: Response, _next) => {
@@ -12,6 +13,19 @@ export function groupsRoutes(server: Server) {
       return _next(new InvalidContentError(err));
     }
   });
+
+  server.get(
+    "/contacts-groups",
+    async (_req: Request, _res: Response, _next: Next) => {
+      try {
+        const contactsGroups = await ContactGroup.findAll();
+        _res.send(contactsGroups);
+        _next();
+      } catch (err) {
+        new InvalidContentError(err);
+      }
+    }
+  );
 
   // Find One
   server.get("/groups/:id", async (_req: Request, _res: Response, _next) => {

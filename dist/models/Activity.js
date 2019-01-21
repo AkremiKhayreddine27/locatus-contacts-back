@@ -31,7 +31,7 @@ __decorate([
     __metadata("design:type", Object)
 ], Activity.prototype, "children", void 0);
 __decorate([
-    sequelize_typescript_1.BelongsToMany(() => Contact_1.Contact, "contacts_activities", "activityId", "contactId"),
+    sequelize_typescript_1.BelongsToMany(() => Contact_1.Contact, "ContactActivity", "activityId", "contactId"),
     __metadata("design:type", Object)
 ], Activity.prototype, "contacts", void 0);
 Activity = Activity_1 = __decorate([

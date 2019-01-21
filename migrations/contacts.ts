@@ -132,7 +132,12 @@ export async function migrate() {
         type: Sequelize.INTEGER
       }
     });
-    await db.getQueryInterface().createTable("contacts_groups", {
+    await db.getQueryInterface().createTable("ContactGroup", {
+      id: {
+        type: Sequelize.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+      },
       contactId: {
         type: Sequelize.INTEGER,
         references: {
@@ -150,7 +155,12 @@ export async function migrate() {
         onDelete: "cascade"
       }
     });
-    await db.getQueryInterface().createTable("contacts_activities", {
+    await db.getQueryInterface().createTable("ContactActivity", {
+      id: {
+        type: Sequelize.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+      },
       contactId: {
         type: Sequelize.INTEGER,
         references: {
