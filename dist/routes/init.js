@@ -13,6 +13,7 @@ const contacts_1 = require("../seeders/contacts");
 const groups_1 = require("../seeders/groups");
 const activities_1 = require("../seeders/activities");
 const contacts_2 = require("../migrations/contacts");
+const users_1 = require("../seeders/users");
 function initRoutes(server) {
     server.post("/migrate", (_req, _res, _next) => __awaiter(this, void 0, void 0, function* () {
         try {
@@ -47,6 +48,16 @@ function initRoutes(server) {
     server.post("/seed/activities", (_req, _res, _next) => __awaiter(this, void 0, void 0, function* () {
         try {
             yield activities_1.seedActivities();
+            _res.send(201);
+            _next();
+        }
+        catch (err) {
+            return _next(new restify_errors_1.InternalError(err.message));
+        }
+    }));
+    server.post("/seed/users", (_req, _res, _next) => __awaiter(this, void 0, void 0, function* () {
+        try {
+            yield users_1.seedUsers();
             _res.send(201);
             _next();
         }

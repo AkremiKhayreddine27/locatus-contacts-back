@@ -15,8 +15,6 @@ server.use(
   rjwt({ secret: config.JWT_SECRET }).unless({ path: ["/auth", "/register"] })
 );
 
-
-
 server.listen(config.PORT, () => {});
 
 db.authenticate()

@@ -4,17 +4,21 @@ import { seedContacts } from "../seeders/contacts";
 import { seedGroups } from "../seeders/groups";
 import { seedActivities } from "../seeders/activities";
 import { migrate } from "../migrations/contacts";
+import { seedUsers } from "../seeders/users";
 
 export function initRoutes(server: Server) {
-  server.post("/migrate", async (_req: Request, _res: Response, _next: Next) => {
-    try {
-      await migrate();
-      _res.send(201);
-      _next();
-    } catch (err) {
-      return _next(new InternalError(err.message));
+  server.post(
+    "/migrate",
+    async (_req: Request, _res: Response, _next: Next) => {
+      try {
+        await migrate();
+        _res.send(201);
+        _next();
+      } catch (err) {
+        return _next(new InternalError(err.message));
+      }
     }
-  });
+  );
 
   server.post(
     "/seed/contacts",
@@ -51,4 +55,14 @@ export function initRoutes(server: Server) {
       }
     }
   );
+
+  server.post("/seed/users", async (_req: Request, _res: Response, _next) => {
+    try {
+      await seedUsers();
+      _res.send(201);
+      _next();
+    } catch (err) {
+      return _next(new InternalError(err.message));
+    }
+  });
 }
