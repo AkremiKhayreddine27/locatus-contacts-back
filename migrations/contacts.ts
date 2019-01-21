@@ -57,6 +57,9 @@ export async function migrate() {
       followed: {
         type: Sequelize.BOOLEAN
       },
+      active: {
+        type: Sequelize.BOOLEAN
+      },
       emails: {
         type: Sequelize.ARRAY(Sequelize.JSON)
       },

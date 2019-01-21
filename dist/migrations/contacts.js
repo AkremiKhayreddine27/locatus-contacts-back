@@ -67,6 +67,9 @@ function migrate() {
                 followed: {
                     type: sequelize_typescript_1.Sequelize.BOOLEAN
                 },
+                active: {
+                    type: sequelize_typescript_1.Sequelize.BOOLEAN
+                },
                 emails: {
                     type: sequelize_typescript_1.Sequelize.ARRAY(sequelize_typescript_1.Sequelize.JSON)
                 },

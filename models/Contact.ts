@@ -64,6 +64,9 @@ export class Contact extends Model<Contact> {
   @Column(DataType.STRING)
   webSite;
 
+  @Column(DataType.BOOLEAN)
+  active;
+
   @BelongsToMany(() => Group, "contacts_groups", "contactId", "groupId")
   groups;
 

@@ -33,6 +33,7 @@ function groupsRoutes(server) {
             return _next(new restify_errors_1.ResourceNotFoundError("There is no group with id of " + _req.params.id));
         }
     }));
+    // Add contacts to group
     server.post("/groups/:id/contacts", (_req, _res, _next) => __awaiter(this, void 0, void 0, function* () {
         try {
             const { contactsIds } = _req.body;

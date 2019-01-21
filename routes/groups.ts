@@ -28,6 +28,7 @@ export function groupsRoutes(server: Server) {
     }
   });
 
+  // Add contacts to group
   server.post(
     "/groups/:id/contacts",
     async (_req: Request, _res: Response, _next: Next) => {

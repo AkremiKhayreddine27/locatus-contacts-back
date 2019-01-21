@@ -4,6 +4,8 @@ import { Contact } from "../models/Contact";
 import { Group } from "../models/Group";
 import { Activity } from "../models/Activity";
 import { Sequelize } from "sequelize-typescript";
+
+
 export function contactsRoutes(server: Server) {
   // Find all
   server.get("/contacts", async (_req: Request, _res: Response, _next) => {

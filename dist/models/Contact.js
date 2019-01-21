@@ -81,6 +81,10 @@ __decorate([
     __metadata("design:type", Object)
 ], Contact.prototype, "webSite", void 0);
 __decorate([
+    sequelize_typescript_1.Column(sequelize_typescript_1.DataType.BOOLEAN),
+    __metadata("design:type", Object)
+], Contact.prototype, "active", void 0);
+__decorate([
     sequelize_typescript_1.BelongsToMany(() => Group_1.Group, "contacts_groups", "contactId", "groupId"),
     __metadata("design:type", Object)
 ], Contact.prototype, "groups", void 0);

@@ -196,6 +196,7 @@ function generate(nbr) {
             photo: "",
             rate: contactRates,
             followed: faker.random.arrayElement([1, 0]),
+            active: faker.random.arrayElement([1, 0]),
             visibility: visibility,
             createdAt: new Date(),
             lastModified: new Date()
