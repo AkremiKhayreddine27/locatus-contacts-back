@@ -16,6 +16,7 @@ server.use(
 );
 
 
+
 server.listen(config.PORT, () => {});
 
 db.authenticate()

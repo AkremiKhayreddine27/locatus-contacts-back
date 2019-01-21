@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var Activity_1;
 const sequelize_typescript_1 = require("sequelize-typescript");
+const Contact_1 = require("./Contact");
 let Activity = Activity_1 = class Activity extends sequelize_typescript_1.Model {
 };
 __decorate([
@@ -29,6 +30,10 @@ __decorate([
     sequelize_typescript_1.HasMany(() => Activity_1),
     __metadata("design:type", Object)
 ], Activity.prototype, "children", void 0);
+__decorate([
+    sequelize_typescript_1.BelongsToMany(() => Contact_1.Contact, "contacts_activities", "activityId", "contactId"),
+    __metadata("design:type", Object)
+], Activity.prototype, "contacts", void 0);
 Activity = Activity_1 = __decorate([
     sequelize_typescript_1.Table
 ], Activity);

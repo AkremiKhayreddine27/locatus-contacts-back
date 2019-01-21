@@ -7,6 +7,7 @@ import {
   ForeignKey,
   BelongsToMany
 } from "sequelize-typescript";
+import { Contact } from "./Contact";
 
 @Table
 export class Group extends Model<Group> {
@@ -22,6 +23,6 @@ export class Group extends Model<Group> {
   @BelongsTo(() => Group)
   parent;
 
-  @BelongsToMany(() => Group, "contacts_groups", "groupId", "contactId")
+  @BelongsToMany(() => Contact, "contacts_groups", "groupId", "contactId")
   contacts;
 }

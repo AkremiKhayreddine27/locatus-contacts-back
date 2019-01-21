@@ -2,7 +2,7 @@ import {
   InvalidContentError,
   ResourceNotFoundError
 } from "restify-errors";
-import { Server, Request, Response } from "restify";
+import { Server, Request, Response, Next } from "restify";
 import { Activity } from "../models/Activity";
 
 export function activitiesRoutes(server: Server) {
@@ -34,6 +34,23 @@ export function activitiesRoutes(server: Server) {
           new ResourceNotFoundError(
             "There is no activity with id of " + _req.params.id
           )
+        );
+      }
+    }
+  );
+
+  server.post(
+    "/activities/:id/contacts",
+    async (_req: Request, _res: Response, _next: Next) => {
+      try {
+        const { contactsIds } = _req.body;
+        const activity = await Activity.findByPk(_req.params.id);
+        await activity.$add("contacts", contactsIds);
+        _res.send(201);
+        _next();
+      } catch (err) {
+        new ResourceNotFoundError(
+          "There is no group with id of " + _req.params.id
         );
       }
     }

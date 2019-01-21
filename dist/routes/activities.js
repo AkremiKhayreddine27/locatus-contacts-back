@@ -37,6 +37,18 @@ function activitiesRoutes(server) {
             return _next(new restify_errors_1.ResourceNotFoundError("There is no activity with id of " + _req.params.id));
         }
     }));
+    server.post("/activities/:id/contacts", (_req, _res, _next) => __awaiter(this, void 0, void 0, function* () {
+        try {
+            const { contactsIds } = _req.body;
+            const activity = yield Activity_1.Activity.findByPk(_req.params.id);
+            yield activity.$add("contacts", contactsIds);
+            _res.send(201);
+            _next();
+        }
+        catch (err) {
+            new restify_errors_1.ResourceNotFoundError("There is no group with id of " + _req.params.id);
+        }
+    }));
     /*
     server.post(
       "/activities",

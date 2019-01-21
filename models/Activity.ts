@@ -4,8 +4,10 @@ import {
   Model,
   DataType,
   ForeignKey,
-  HasMany
+  HasMany,
+  BelongsToMany
 } from "sequelize-typescript";
+import { Contact } from "./Contact";
 
 @Table
 export class Activity extends Model<Activity> {
@@ -20,4 +22,7 @@ export class Activity extends Model<Activity> {
 
   @HasMany(() => Activity)
   children;
+
+  @BelongsToMany(() => Contact, "contacts_activities", "activityId", "contactId")
+  contacts;
 }
